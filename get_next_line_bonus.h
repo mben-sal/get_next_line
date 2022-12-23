@@ -6,12 +6,16 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:56 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/18 15:50:44 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:42:03 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 # include<stdarg.h>
 # include<unistd.h>

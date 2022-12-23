@@ -6,12 +6,16 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:56 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/18 15:50:26 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:41:56 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 # include<stdarg.h>
 # include<unistd.h>
@@ -19,7 +23,7 @@
 # include<stdio.h>
 # include<fcntl.h>
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *s1);

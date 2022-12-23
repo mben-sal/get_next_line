@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/18 15:55:26 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/23 18:43:29 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,76 +26,78 @@ int	ft_line(char *s)
 	return (-1);
 }
 
-char	*ft_read(int fd, char *save )
+void	ft_assign(char **dst, char *src, char *to_free)
+{
+	*dst = src;
+	free (to_free);
+}
+
+char	*ft_read(int fd, char *save, char *buff)
 {
 	int		n;
-	char	*buff;
 
 	if (!save)
 		save = ft_strdup("");
-	buff = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
-	if (!buff)
-		return (NULL);
 	n = 1;
-	while (n != 0)
+	while (n != 0 || (ft_line(buff) != -1))
 	{
 		n = read(fd, buff, BUFFER_SIZE);
-		if (n == -1)
+		if (n <= 0)
 		{
 			free (buff);
-			return (NULL);
+			if (save && !*save)
+				ft_assign(&save, NULL, save);
+			return (save);
 		}
 		buff[n] = '\0';
-		save = ft_strjoin(save, buff);
-		if (ft_line(save) != -1)
-			break ;
+		ft_assign(&save, ft_strjoin(save, buff), save);
 	}
 	free (buff);
 	return (save);
 }
 
-char	*ft_save_line(char*save)
+char	*ft_save(char **saved)
 {
-	int		i;
 	char	*line;
+	int		i;
 
 	i = 0;
-	while (save[i] && save[i] != '\n')
-	{
+	while ((*saved)[i] != '\n' && (*saved)[i] != '\0')
 		i++;
+	if ((*saved)[i] == '\n')
+	{
+		line = ft_substr((*saved), 0, i + 1);
+		ft_assign(saved, ft_strdup((*saved) + i + 1), *saved);
+		return (line);
 	}
-	line = ft_substr (save, 0, i +1);
-	if (save[i] == '\0')
-		return (NULL);
-	return (line);
-}
-
-char	*ft_save(char *s, char *str)
-{
-	int		i;
-	char	*tmp;
-
-	if (str == NULL)
-		return (NULL);
-	i = ft_strlen(str);
-	tmp = ft_strdup(s + i);
-	free (s);
-	return (tmp);
+	if ((*saved)[i] == '\0')
+	{
+		ft_assign(&line, ft_substr((*saved), 0, ft_strlen(*saved)), *saved);
+		*saved = NULL;
+		return (line);
+	}
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*str;
-	static char	*save [1027];
+	char		*buff;
+	static char	*save[1027];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1027)
 		return (NULL);
-	save[fd] = ft_read(fd, save[fd]);
+	buff = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	if (!buff)
+	{
+		free(buff);
+		free (save);
+		return (NULL);
+	}
+	save[fd] = ft_read(fd, save[fd], buff);
 	if (!save[fd])
 		return (NULL);
-	str = ft_save_line(save[fd]);
-	save[fd] = ft_save(save[fd], str);
-	free (save[fd]);
+	str = ft_save(&save[fd]);
 	return (str);
 }
 
