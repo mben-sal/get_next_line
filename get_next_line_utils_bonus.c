@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/20 20:04:16 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:29:57 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len = ft_strlen(s1) + ft_strlen(s2);
 	ptr = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ptr)
+	{
+		free(ptr);
 		return (NULL);
+	}
 	i = 0;
 	j = 0;
 	while (s1[i])
@@ -76,7 +79,10 @@ char	*ft_strdup(const char *s1)
 	len = ft_strlen(str);
 	ptr = (char *)malloc(sizeof(char) *(len + 1));
 	if (!ptr)
+	{
+		free(ptr);
 		return (NULL);
+	}
 	while (i < len)
 	{
 		ptr[i] = s1[i];
@@ -101,7 +107,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	else
 		ptr = malloc((len + 1) * sizeof(char));
 	if (!ptr)
+	{
+		free(ptr);
 		return (NULL);
+	}
 	while (s[start] && i < len)
 	{
 		ptr[i] = s[start];

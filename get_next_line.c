@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/23 18:51:56 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:26:50 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*get_next_line(int fd)
 	if (!buff)
 	{
 		free(buff);
-		// free (save);
 		return (NULL);
 	}
 	save = ft_read(fd, save, buff);
@@ -101,22 +100,22 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-int    main()
-{
-    int fd;
-    char *s;
-	int i = 0;
+// int    main()
+// {
+//     int fd;
+//     char *s;
+// 	int i = 0;
 
-    fd = open("test1", O_CREAT | O_RDWR , 0777);
-	while (3)
-	{
-		s = get_next_line(fd);
-		if (!s)
-			break ;
-			printf("%s",s);
-		i++;
-		free(s);
-	}
-		// while (1) {}
-	return 0;
-}
+//     fd = open("test1", O_CREAT | O_RDWR , 0777);
+// 	while (3)
+// 	{
+// 		s = get_next_line(fd);
+// 		if (!s)
+// 			break ;
+// 			printf("%s",s);
+// 		i++;
+// 		free(s);
+// 	}
+// 		// while (1) {}
+// 	return 0;
+// }
