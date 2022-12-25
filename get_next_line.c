@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/24 12:26:50 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/24 17:37:47 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_line(char *s)
 	return (-1);
 }
 
-void	ft_assign(char **dst, char *src, char *to_free)
+void	ft_free(char **dst, char *src, char *to_free)
 {
 	*dst = src;
 	free (to_free);
@@ -39,42 +39,44 @@ char	*ft_read(int fd, char *save, char *buff)
 	if (!save)
 		save = ft_strdup("");
 	n = 1;
-	while (n != 0 || (ft_line(buff) != -1))
+	while (n != 0)
 	{
 		n = read(fd, buff, BUFFER_SIZE);
 		if (n <= 0)
 		{
 			free (buff);
 			if (save && !*save)
-				ft_assign(&save, NULL, save);
+				ft_free(&save, NULL, save);
 			return (save);
 		}
 		buff[n] = '\0';
-		ft_assign(&save, ft_strjoin(save, buff), save);
+		ft_free(&save, ft_strjoin(save, buff), save);
+		if (ft_line(buff) != -1)
+			break ;
 	}
 	free (buff);
 	return (save);
 }
 
-char	*ft_save(char **saved)
+char	*ft_save(char **str)
 {
-	char	*line;
+	char	*newln;
 	int		i;
 
 	i = 0;
-	while ((*saved)[i] != '\n' && (*saved)[i] != '\0')
+	while ((*str)[i] != '\n' && (*str)[i] != '\0')
 		i++;
-	if ((*saved)[i] == '\n')
+	if ((*str)[i] == '\n')
 	{
-		line = ft_substr((*saved), 0, i + 1);
-		ft_assign(saved, ft_strdup((*saved) + i + 1), *saved);
-		return (line);
+		newln = ft_substr((*str), 0, i + 1);
+		ft_free(str, ft_strdup((*str) + i + 1), *str);
+		return (newln);
 	}
-	if ((*saved)[i] == '\0')
+	if ((*str)[i] == '\0')
 	{
-		ft_assign(&line, ft_substr((*saved), 0, ft_strlen(*saved)), *saved);
-		*saved = NULL;
-		return (line);
+		ft_free(&newln, ft_substr((*str), 0, ft_strlen(*str)), *str);
+		*str = NULL;
+		return (newln);
 	}
 	return (NULL);
 }
@@ -100,22 +102,37 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-// int    main()
-// {
-//     int fd;
-//     char *s;
-// 	int i = 0;
-
-//     fd = open("test1", O_CREAT | O_RDWR , 0777);
-// 	while (3)
-// 	{
-// 		s = get_next_line(fd);
-// 		if (!s)
-// 			break ;
-// 			printf("%s",s);
-// 		i++;
-// 		free(s);
-// 	}
-// 		// while (1) {}
-// 	return 0;
-// }
+int main()
+{
+	int fd;
+	// int i = 0;
+	// char *s;
+	fd = open("./42_with_nl", O_CREAT | O_RDWR);
+	// while(1)
+	// {
+	// 	s = get_next_line(fd);
+	// 	printf("%s",s);
+	// 	if (!s)
+	// 		break;
+	// 	// i++;
+	// 	free(s);
+	// }
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+		printf("%s",get_next_line(fd));
+		printf("%s",get_next_line(fd));
+		printf("%s",get_next_line(fd));
+		// printf("%s",get_next_line(fd));
+		// printf("%s",get_next_line(fd));
+		// printf("%s",get_next_line(fd));
+		// printf("%s",get_next_line(fd));
+		// printf("%s",get_next_line(fd));
+		close(fd);
+}

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/23 18:43:29 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/24 16:58:23 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_read(int fd, char *save, char *buff)
 	if (!save)
 		save = ft_strdup("");
 	n = 1;
-	while (n != 0 || (ft_line(buff) != -1))
+	while (n != 0)
 	{
 		n = read(fd, buff, BUFFER_SIZE);
 		if (n <= 0)
@@ -51,6 +51,8 @@ char	*ft_read(int fd, char *save, char *buff)
 		}
 		buff[n] = '\0';
 		ft_assign(&save, ft_strjoin(save, buff), save);
+		if (ft_line(buff) != -1)
+			break ;
 	}
 	free (buff);
 	return (save);
