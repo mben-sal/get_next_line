@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/24 16:58:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/27 18:36:41 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ char	*get_next_line(int fd)
 {
 	char		*str;
 	char		*buff;
-	static char	*save[1027];
+	static char	*save[10240];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1027)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 10240)
 		return (NULL);
 	buff = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
 	if (!buff)
@@ -102,26 +102,3 @@ char	*get_next_line(int fd)
 	str = ft_save(&save[fd]);
 	return (str);
 }
-
-// int main()
-// {
-// 	int i = 0;
-// 	int j = 0;
-// 	char *s;
-// 	int fd [3];
-
-// 	fd[0] = open("test" , O_CREAT | O_RDWR);
-// 	fd[1] = open("test1" , O_CREAT | O_RDWR);
-// 	fd[2] = open("test2" , O_CREAT | O_RDWR);
-
-// 	while (i <= 5 && j <= 3)
-// 	{
-// 		s = get_next_line(fd[j]);
-// 		if(!s)
-// 			return 0;
-// 		printf("%s",s);
-// 		i++;
-// 		j++;
-// 	}
-// 	return 0;
-// }

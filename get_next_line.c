@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:18:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2022/12/24 17:37:47 by mben-sal         ###   ########.fr       */
+/*   Updated: 2022/12/27 19:47:39 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,39 +100,4 @@ char	*get_next_line(int fd)
 		return (NULL);
 	str = ft_save(&save);
 	return (str);
-}
-
-int main()
-{
-	int fd;
-	// int i = 0;
-	// char *s;
-	fd = open("./42_with_nl", O_CREAT | O_RDWR);
-	// while(1)
-	// {
-	// 	s = get_next_line(fd);
-	// 	printf("%s",s);
-	// 	if (!s)
-	// 		break;
-	// 	// i++;
-	// 	free(s);
-	// }
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-		printf("%s",get_next_line(fd));
-		printf("%s",get_next_line(fd));
-		printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-		// printf("%s",get_next_line(fd));
-		close(fd);
 }
